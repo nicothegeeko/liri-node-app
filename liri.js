@@ -108,6 +108,7 @@ function loadMovie(movie){
         console.log("Plot: " + JSON.parse(body).Plot);
         console.log("Actors: " + JSON.parse(body).Actors);
         console.log("Rotten Tomatoes Rating: " + JSON.parse(body).Ratings[1].Value);
+        console.log("Rotten Tomatoes URL: " + JSON.parse(body).tomatoURL);
       }
     });
     
