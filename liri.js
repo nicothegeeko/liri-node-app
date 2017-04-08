@@ -1,4 +1,3 @@
-
 // Requires for various NPM packages and keys for Twitter
 var keys = require('./keys.js');
 var fs = require('fs');
@@ -27,22 +26,16 @@ if (process.argv[2] == "my-tweets") {
     } else {
         spotifySong("Young Folks");
     }
-}
-
-else if (process.argv[2] === "movie-this"){
-    if (process.argv[3] !== undefined){
+} else if (process.argv[2] === "movie-this") {
+    if (process.argv[3] !== undefined) {
         loadMovie(nameOfItem);
-    }
-    else {
+    } else {
         loadMovie("Mr. Nobody");
     }
-}
-
-else if (process.argv[2] == "do-what-it-says") {
-   loadRando()}
-
-   else {
-    console.log("Please Choose an Argument "+ " *my-tweets* " + " *spotify-this-song* " + " *movie-this* " + " *do-what-it-says* " + " and enter in the command line " );
+} else if (process.argv[2] == "do-what-it-says") {
+    loadRando()
+} else {
+    console.log("Please Choose an Argument " + " *my-tweets* " + " *spotify-this-song* " + " *movie-this* " + " *do-what-it-says* " + " and enter in the command line ");
 }
 
 //npm package used to get 20 tweets from twitter account connected to keys
@@ -50,18 +43,18 @@ function loadTweets() {
 
     console.log("Recent Tweets")
 
-//parameters for requesting tweets and amount of tweets
+    //parameters for requesting tweets and amount of tweets
     var params = {
         screen_name: 'FancyPantsNico',
         count: 20
     };
     client.get('statuses/user_timeline', params, function(error, tweets, response) {
-         // If the request is successful
+        // If the request is successful
         if (!error) {
             for (var i = 0; i < 20; i++)
                 console.log("-------" + "Tweet From @FancyPantsNico" + "---------" + "  " + "[" + "Tweeted On:" + tweets[i].created_at + tweets[i].text + "]");
-                
-                
+
+
 
         }
     });
@@ -90,55 +83,67 @@ function spotifySong(name) {
 };
 
 //npm package used to get information on songs Movies by title using OMDB API
-function loadMovie(movie){
+function loadMovie(movie) {
 
     var queryUrl = "http://www.omdbapi.com/?t=" + movie + "&y=&plot=short&r=json";
 
     request(queryUrl, function(error, response, body) {
 
-      // If the request is successful
-      if (!error && response.statusCode === 200) {
+        // If the request is successful
+        if (!error && response.statusCode === 200) {
 
-        // Parsing body of OMDB API info 
-        console.log("Title: " + JSON.parse(body).Title);
-        console.log("Release Year: " + JSON.parse(body).Year);
-        console.log("IMDB Rating: " + JSON.parse(body).imdbRating);
-        console.log("Country: " + JSON.parse(body).Country);
-        console.log("Languages: " + JSON.parse(body).Language);
-        console.log("Plot: " + JSON.parse(body).Plot);
-        console.log("Actors: " + JSON.parse(body).Actors);
-        console.log("Rotten Tomatoes Rating: " + JSON.parse(body).Ratings[1].Value);
-        console.log("Rotten Tomatoes URL: " + JSON.parse(body).tomatoURL);
-      }
+            // Parsing body of OMDB API info 
+            console.log("Title: " + JSON.parse(body).Title);
+            console.log("Release Year: " + JSON.parse(body).Year);
+            console.log("IMDB Rating: " + JSON.parse(body).imdbRating);
+            console.log("Country: " + JSON.parse(body).Country);
+            console.log("Languages: " + JSON.parse(body).Language);
+            console.log("Plot: " + JSON.parse(body).Plot);
+            console.log("Actors: " + JSON.parse(body).Actors);
+            console.log("Rotten Tomatoes Rating: " + JSON.parse(body).Ratings[1].Value);
+            console.log("Rotten Tomatoes URL: " + JSON.parse(body).tomatoURL);
+        }
     });
-    
-  
+
+
 
 };
 
+var inputOne = process.argv[2];
+var inputTwo = process.argv[3];
+
 //getting information from random.txt file and using it to run randomly selected data request type
-function loadRando (){
+function loadRando() {
     console.log("Loading Random.txt file");
     fs.readFile("random.txt", "utf8", function(error, data) {
-        if(error){
+        if (error) {
             console.log(error);
-        }else{
+        } else {
 
-        //split data, declaring variables
-        var dataArr = data.split(',');
-        inputOne = dataArr[0];
-        inputTwo = dataArr[1];
+            //split data, declaring variables
+            var dataArr = data.split(',');
+            inputOne = dataArr[0];
+            inputTwo = dataArr[1];
 
-        var inputOne = process.argv[2];
-        var inputTwo = process.argv[3];
 
-        for(i=2; i<dataArr.length; i++){
-            secondCommand = secondCommand + "+" + dataArr[i]
+
+            switch (dataArr) {
+                case 'my-tweets':
+                    loadTwitter(arg);
+                    break;
+                case 'spotify-this-song':
+                    spotifySong(arg);
+                    break;
+                case 'movie-this':
+                    loadMovie(arg);
+                    break;
+            }
+
+
 
 
         }
-        
 
-}
-})
+
+    })
 };
