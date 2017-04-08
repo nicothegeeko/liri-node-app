@@ -126,7 +126,7 @@ function loadRando() {
             inputTwo = dataArr[1];
 
 
-
+            //attempting to change code to be executed when rendering random.txt 
             switch (dataArr) {
                 case 'my-tweets':
                     loadTwitter(arg);
