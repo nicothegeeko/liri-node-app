@@ -5,10 +5,10 @@
 LIRI is like iPhone's SIRI. However, while SIRI is a Speech Interpretation and Recognition Interface, LIRI is a _Language_ Interpretation and Recognition Interface. LIRI is a command line node app that takes in parameters and gives back data based on said parameters.
 
 #Requirements
-*Use Command Line arguments and npm packages in node.js to: 
-	*Display Latest Tweets (20);
-	*Get specific songs from spotify;
-	*Get movie info from IMDB; 
+* Use Command Line arguments and npm packages in node.js to: 
+	* Display Latest Tweets (20);
+	* Get specific songs from spotify;
+	* Get movie info from IMDB; 
 
 Technologies Used
 
